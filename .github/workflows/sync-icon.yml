@@ -16,13 +16,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 创建存放目录并下载最新的 tubiao.json，同时进行链接替换
+      # 2. 直接下载到根目录并重命名，同时进行链接替换
       - name: Fetch and Modify JSON
         run: |
-          mkdir -p baiitang/Sakura/Fileball/Fang
-          TARGET_PATH="baiitang/Sakura/Fileball/Fang/tubiao.json"
+          # 定义根目录下的新文件名
+          TARGET_PATH="Baiitang-Fang.json"
           
-          echo "正在从原仓库下载最新的 tubiao.json..."
+          echo "正在从原仓库下载最新的 tubiao.json 并重命名..."
           curl -s "https://raw.githubusercontent.com/RebornQ/Emby-icon-collection/refs/heads/main/baiitang/Sakura/Fileball/Fang/tubiao.json" > "$TARGET_PATH"
           
           echo "正在将 ghfast.top 替换为 git.103516.xyz ..."
@@ -38,9 +38,9 @@ jobs:
           
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -m "chore: 定时同步原仓库并替换自定义域名"
+            git commit -m "chore: 定时同步并重命名为 Baiitang-Fang.json"
             git push origin main
-            echo "成功更新 tubiao.json！"
+            echo "成功更新 JSON 文件！"
           else
             echo "文件无变化，跳过更新。"
           fi
