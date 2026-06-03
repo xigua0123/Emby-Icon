@@ -1,0 +1,51 @@
+name: Sync and Replace Emby Icons
+
+on:
+  schedule:
+    # 每天北京时间早上 8:00 自动执行一次 (UTC 0:00)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # 允许你在页面上手动点击按钮触发更新
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 检出你自己的新仓库
+      - name: Checkout code
+        uses: actions/checkout:v4
+
+      # 2. 创建存放目录并下载最新的 tubiao.json，同时进行链接替换
+      - name: Fetch and Modify JSON
+        run: |
+          # 创建和原仓库一样的目录结构（保持路径一致，方便你以后调用）
+          mkdir -p baiitang/Sakura/Fileball/Fang/
+          
+          # 目标文件路径
+          TARGET_PATH="baiitang/Sakura/Fileball/Fang/tubiao.json"
+          
+          echo "正在从原仓库下载最新的 tubiao.json..."
+          # 这里直接拉取你提供的那个原文件链接
+          curl -s "https://raw.githubusercontent.com/RebornQ/Emby-icon-collection/refs/heads/main/baiitang/Sakura/Fileball/Fang/tubiao.json" > "$TARGET_PATH"
+          
+          echo "正在将 ghfast.top 替换为 git.103516.xyz ..."
+          # 批量替换
+          sed -i 's|https://ghfast.top/|https://git.103516.xyz/|g' "$TARGET_PATH"
+          
+          echo "处理完成！"
+
+      # 3. 提交修改并推送到你的仓库
+      - name: Commit and Push
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "chore: 定时同步原仓库并替换自定义域名"
+            git push origin main
+            echo "成功更新 tubiao.json！"
+          else
+            echo "文件无变化，跳过更新。"
+          fi
