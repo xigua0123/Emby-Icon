@@ -16,21 +16,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 直接下载到根目录并重命名，同时进行链接替换
-      - name: Fetch and Modify JSON
+      # 2. 处理第一个文件 (Baiitang-Fang.json)
+      - name: Fetch and Modify Baiitang JSON
         run: |
-          # 定义根目录下的新文件名
-          TARGET_PATH="Baiitang-Fang.json"
+          TARGET_PATH_1="Baiitang-Fang.json"
+          echo "正在下载并处理 Baiitang 图标..."
+          curl -s "https://raw.githubusercontent.com/RebornQ/Emby-icon-collection/refs/heads/main/baiitang/Sakura/Fileball/Fang/tubiao.json" > "$TARGET_PATH_1"
           
-          echo "正在从原仓库下载最新的 tubiao.json 并重命名..."
-          curl -s "https://raw.githubusercontent.com/RebornQ/Emby-icon-collection/refs/heads/main/baiitang/Sakura/Fileball/Fang/tubiao.json" > "$TARGET_PATH"
-          
-          echo "正在将 ghfast.top 替换为 git.103516.xyz ..."
-          sed -i 's|https://ghfast.top/|https://git.103516.xyz/|g' "$TARGET_PATH"
-          
-          echo "处理完成！"
+          # 第一步：把任何“域名/https://raw.githubusercontent.com”结构都还原为官方原生链接
+          sed -i 's|https://[^/]*/https://raw.githubusercontent.com|https://raw.githubusercontent.com|g' "$TARGET_PATH_1"
+          # 第二步：将所有原生链接统一加上你的反代前缀
+          sed -i 's|https://raw.githubusercontent.com|https://git.103516.xyz/https://raw.githubusercontent.com|g' "$TARGET_PATH_1"
 
-      # 3. 提交修改并推送到你的仓库
+      # 3. 处理第二个文件 (Sooyaaabo-Icon.json)
+      - name: Fetch and Modify Sooyaaabo JSON
+        run: |
+          TARGET_PATH_2="Sooyaaabo-Icon.json"
+          echo "正在下载并处理 Sooyaaabo 图标..."
+          curl -s "https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Emby-Icon-Direct.json" > "$TARGET_PATH_2"
+          
+          # 同样的操作：先统一剥离任何旧反代前缀，再套上你的新域名
+          sed -i 's|https://[^/]*/https://raw.githubusercontent.com|https://raw.githubusercontent.com|g' "$TARGET_PATH_2"
+          sed -i 's|https://raw.githubusercontent.com|https://git.103516.xyz/https://raw.githubusercontent.com|g' "$TARGET_PATH_2"
+
+      # 4. 提交修改并推送到你的仓库
       - name: Commit and Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -38,9 +47,9 @@ jobs:
           
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -m "chore: 定时同步并重命名为 Baiitang-Fang.json"
+            git commit -m "chore: 智能适配任意反代并更新图标文件"
             git push origin main
-            echo "成功更新 JSON 文件！"
+            echo "成功更新所有 JSON 文件！"
           else
-            echo "文件无变化，跳过更新。"
+            echo "所有文件均无变化，跳过更新。"
           fi
