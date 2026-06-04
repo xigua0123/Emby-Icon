@@ -16,30 +16,63 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. 处理第一个文件 (Baiitang-Fang.json)
-      - name: Fetch and Modify Baiitang JSON
+      # ==================== 区域 A：使用自建反代 (git.103516.xyz) ====================
+
+      # 1. 处理 Baiitang-Fang.json (自建反代)
+      - name: Fetch and Modify Baiitang (Self-Host Proxy)
         run: |
           TARGET_PATH_1="Baiitang-Fang.json"
-          echo "正在下载并处理 Baiitang 图标..."
+          echo "正在处理 Baiitang-Fang.json..."
           curl -s "https://raw.githubusercontent.com/RebornQ/Emby-icon-collection/refs/heads/main/baiitang/Sakura/Fileball/Fang/tubiao.json" > "$TARGET_PATH_1"
           
-          # 第一步：把任何“域名/https://raw.githubusercontent.com”结构都还原为官方原生链接
+          # 清除可能存在的旧反代，统一套上你的自建反代
           sed -i 's|https://[^/]*/https://raw.githubusercontent.com|https://raw.githubusercontent.com|g' "$TARGET_PATH_1"
-          # 第二步：将所有原生链接统一加上你的反代前缀
           sed -i 's|https://raw.githubusercontent.com|https://git.103516.xyz/https://raw.githubusercontent.com|g' "$TARGET_PATH_1"
 
-      # 3. 处理第二个文件 (Sooyaaabo-Icon.json)
-      - name: Fetch and Modify Sooyaaabo JSON
+      # 2. 处理 Sooyaaabo-Icon.json (自建反代)
+      - name: Fetch and Modify Sooyaaabo (Self-Host Proxy)
         run: |
           TARGET_PATH_2="Sooyaaabo-Icon.json"
-          echo "正在下载并处理 Sooyaaabo 图标..."
+          echo "正在处理 Sooyaaabo-Icon.json..."
           curl -s "https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Emby-Icon-Direct.json" > "$TARGET_PATH_2"
           
-          # 同样的操作：先统一剥离任何旧反代前缀，再套上你的新域名
+          # 清除可能存在的旧反代，统一套上你的自建反代
           sed -i 's|https://[^/]*/https://raw.githubusercontent.com|https://raw.githubusercontent.com|g' "$TARGET_PATH_2"
           sed -i 's|https://raw.githubusercontent.com|https://git.103516.xyz/https://raw.githubusercontent.com|g' "$TARGET_PATH_2"
 
-      # 4. 提交修改并推送到你的仓库
+
+      # ==================== 区域 B：使用 jsDelivr 加速 (testingcf) ====================
+
+      # 3. 处理 tubiao.json (testingcf 加速)
+      # 转换规则：将 https://raw.githubusercontent.com/用户/仓库/main/路径 
+      # 转换为：https://testingcf.jsdelivr.net/gh/用户/仓库@main/路径
+      - name: Fetch and Modify tubiao.json (jsDelivr)
+        run: |
+          TARGET_PATH_3="tubiao.json"
+          echo "正在处理 tubiao.json..."
+          curl -s "https://raw.githubusercontent.com/baiitang/Sakura/main/Fileball/Fang/tubiao.json" > "$TARGET_PATH_3"
+          
+          # 步骤①：剥离原文件里可能带有的各种前置反代域名（例如 ghfast.top/https://raw.github... 还原为原生）
+          sed -i 's|https://[^/]*/https://raw.githubusercontent.com|https://raw.githubusercontent.com|g' "$TARGET_PATH_3"
+          
+          # 步骤②：将原生 GitHub 链接批量重写为标准的 jsDelivr 格式
+          sed -i 's|https://raw.githubusercontent.com/\([^/]*\)/\([^/]*\)/[^/]*/|https://testingcf.jsdelivr.net/gh/\1/\2@main/|g' "$TARGET_PATH_3"
+
+      # 4. 处理 Emby-Icon.json (testingcf 加速)
+      - name: Fetch and Modify Emby-Icon.json (jsDelivr)
+        run: |
+          TARGET_PATH_4="Emby-Icon.json"
+          echo "正在处理 Emby-Icon.json..."
+          curl -s "https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Emby-Icon.json" > "$TARGET_PATH_4"
+          
+          # 步骤①：剥离旧反代
+          sed -i 's|https://[^/]*/https://raw.githubusercontent.com|https://raw.githubusercontent.com|g' "$TARGET_PATH_4"
+          
+          # 步骤②：批量重写为 jsDelivr 格式
+          sed -i 's|https://raw.githubusercontent.com/\([^/]*\)/\([^/]*\)/[^/]*/|https://testingcf.jsdelivr.net/gh/\1/\2@main/|g' "$TARGET_PATH_4"
+
+
+      # ==================== 区域 C：检查并提交到你的仓库 ====================
       - name: Commit and Push
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -47,9 +80,9 @@ jobs:
           
           if [ -n "$(git status --porcelain)" ]; then
             git add .
-            git commit -m "chore: 智能适配任意反代并更新图标文件"
+            git commit -m "chore: 自动同步并分类处理 4 个自定义图标 JSON"
             git push origin main
-            echo "成功更新所有 JSON 文件！"
+            echo "所有 JSON 文件已成功更新！"
           else
             echo "所有文件均无变化，跳过更新。"
           fi
