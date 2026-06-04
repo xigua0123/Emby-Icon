@@ -8,6 +8,10 @@ https://raw.githubusercontent.com/baiitang/Sakura/main/Fileball/Fang/tubiao.json
 ```
 https://git.103516.xyz/https://raw.githubusercontent.com/xigua0123/Emby-Icon/refs/heads/main/Baiitang-Fang.json
 ```
+直连加速：
+```
+https://testingcf.jsdelivr.net/gh/xigua0123/Emby-Icon@main/tubiao.json
+```
 
 Emby 图标库
 
