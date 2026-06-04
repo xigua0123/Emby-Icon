@@ -8,7 +8,7 @@ https://raw.githubusercontent.com/baiitang/Sakura/main/Fileball/Fang/tubiao.json
 ```
 https://git.103516.xyz/https://raw.githubusercontent.com/xigua0123/Emby-Icon/refs/heads/main/Baiitang-Fang.json
 ```
-直连加速：
+CDN加速：
 ```
 https://testingcf.jsdelivr.net/gh/xigua0123/Emby-Icon@main/tubiao.json
 ```
@@ -23,4 +23,8 @@ https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Emby-Icon.json
 直连加速：
 ```
 https://git.103516.xyz/https://raw.githubusercontent.com/xigua0123/Emby-Icon/refs/heads/main/Sooyaaabo-Icon.json
+```
+CDN加速：
+```
+https://testingcf.jsdelivr.net/gh/xigua0123/Emby-Icon@main/Emby-Icon.json
 ```
