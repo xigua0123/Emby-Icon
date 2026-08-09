@@ -1,6 +1,6 @@
 {
     "name": "恩秀Emby图标库",
-    "description": "作者：sooyaaabo｜更新时间：2026-08-06 17:00｜本图标库中部分图标来源于TFEL-Emby图标库或基于其进行二次创作，特此说明",
+    "description": "作者：sooyaaabo｜更新时间：2026-08-08 18:00｜本图标库中部分图标来源于TFEL-Emby图标库或基于其进行二次创作，特此说明",
     "icons": [
         {
             "name": "AList",
@@ -1283,6 +1283,30 @@
             "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/LiXiangGuo-02.png"
         },
         {
+            "name": "Lollipop BangBangTang",
+            "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/LollipopEmby-01.png"
+        },
+        {
+            "name": "Lollipop BangBangTang",
+            "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/LollipopEmby-02.png"
+        },
+        {
+            "name": "Lollipop BangBangTang",
+            "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/LollipopEmby-03.png"
+        },
+        {
+            "name": "Lollipop BangBangTang",
+            "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/LollipopEmby-04.png"
+        },
+        {
+            "name": "Lollipop BangBangTang",
+            "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/LollipopEmby-05.png"
+        },
+        {
+            "name": "Lollipop BangBangTang",
+            "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/LollipopEmby-06.png"
+        },
+        {
             "name": "Long",
             "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/LongEmby.png"
         },
@@ -2009,6 +2033,10 @@
         {
             "name": "qmseee",
             "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/qmseee.png"
+        },
+        {
+            "name": "QuJingGe",
+            "url": "https://testingcf.jsdelivr.net/gh/sooyaaabo/IconLibrary@main/Emby/QuJingGe.png"
         },
         {
             "name": "Qyys QiYuan",
