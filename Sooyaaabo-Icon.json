@@ -1,6 +1,6 @@
 {
     "name": "恩秀Emby图标库",
-    "description": "作者：sooyaaabo｜更新时间：2026-11-14 15:00｜本图标库中部分图标来源于TFEL-Emby图标库或基于其进行二次创作，特此说明",
+    "description": "作者：sooyaaabo｜更新时间：2026-11-18 19:00｜本图标库中部分图标来源于TFEL-Emby图标库或基于其进行二次创作，特此说明",
     "icons": [
         {
             "name": "AList",
@@ -305,6 +305,10 @@
         {
             "name": "BB",
             "url": "https://icon.103516.xyz/Emby/BBQAQEmby.png"
+        },
+        {
+            "name": "BDL",
+            "url": "https://icon.103516.xyz/Emby/BDLEmby.png"
         },
         {
             "name": "BTYIN EFu",
@@ -1491,6 +1495,14 @@
             "url": "https://icon.103516.xyz/Emby/Loser.1111-05.png"
         },
         {
+            "name": "LueLueLue LveLveLve",
+            "url": "https://icon.103516.xyz/Emby/LueluelueEmby-01.png"
+        },
+        {
+            "name": "LueLueLue LveLveLve",
+            "url": "https://icon.103516.xyz/Emby/LueluelueEmby-02.png"
+        },
+        {
             "name": "LuminaGallery LiuGuangHuaLang",
             "url": "https://icon.103516.xyz/Emby/LuminaGallery-01.png"
         },
@@ -1769,6 +1781,18 @@
         {
             "name": "MoMei",
             "url": "https://icon.103516.xyz/Emby/MoMei-03.png"
+        },
+        {
+            "name": "MontaHD",
+            "url": "https://icon.103516.xyz/Emby/MontaHD-01.png"
+        },
+        {
+            "name": "MontaHD",
+            "url": "https://icon.103516.xyz/Emby/MontaHD-02.png"
+        },
+        {
+            "name": "MontaHD",
+            "url": "https://icon.103516.xyz/Emby/MontaHD-03.png"
         },
         {
             "name": "Mooncake YueBing",
